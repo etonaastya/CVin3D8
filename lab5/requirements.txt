@@ -1,0 +1,9 @@
+torch
+torchvision
+torchaudio
+open3d
+numpy
+h5py
+tqdm
+matplotlib
+scikit-learn

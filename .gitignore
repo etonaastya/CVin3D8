@@ -1,0 +1,7 @@
+labs/
+__pycache__/
+*.h5
+ModelNet10/
+build/
+dist/
+*.egg-info/
