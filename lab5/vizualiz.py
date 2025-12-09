@@ -16,7 +16,11 @@ model = PointNet(num_classes=num_classes)
 model.load_state_dict(torch.load("../pointnet_model.pth", weights_only=True))
 model.eval()
 
+<<<<<<< HEAD
 print("Предсказания на тесте...")
+=======
+print("Делаем предсказания на тесте...")
+>>>>>>> 6ecac09b0a3a4852a032d59a545c470ef94999d6
 all_preds, all_labels = [], []
 with torch.no_grad():
     for i in range(len(test_ds)):
@@ -30,12 +34,20 @@ with torch.no_grad():
 all_preds = np.array(all_preds)
 all_labels = np.array(all_labels)
 test_acc = (all_preds == all_labels).mean()
+<<<<<<< HEAD
 print(f"Точность (проверка): {test_acc:.4f}")
+=======
+print(f" Точность (проверка): {test_acc:.4f}")
+>>>>>>> 6ecac09b0a3a4852a032d59a545c470ef94999d6
 
 with h5py.File("../modelnet10_1024.h5", 'r') as f:
     classes = [cls.decode('utf-8') for cls in f['classes'][:]]
 
+<<<<<<< HEAD
 print("Строим confusion matrix...")
+=======
+print(" Строим confusion matrix...")
+>>>>>>> 6ecac09b0a3a4852a032d59a545c470ef94999d6
 cm = confusion_matrix(all_labels, all_preds, normalize='true')
 plt.figure(figsize=(8, 6))
 plt.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
@@ -48,7 +60,11 @@ plt.ylabel('True label')
 plt.xlabel('Predicted label')
 plt.tight_layout()
 plt.savefig("confusion_matrix.png", dpi=150, bbox_inches='tight')
+<<<<<<< HEAD
 print("confusion_matrix.png сохранён")
+=======
+print(" confusion_matrix.png сохранён")
+>>>>>>> 6ecac09b0a3a4852a032d59a545c470ef94999d6
 
 epochs = list(range(1, 81))
 val_acc = [
@@ -74,7 +90,11 @@ plt.legend()
 plt.grid(True, alpha=0.3)
 plt.tight_layout()
 plt.savefig("val_accuracy.png", dpi=150)
+<<<<<<< HEAD
 print("val_accuracy.png сохранён")
+=======
+print(" val_accuracy.png сохранён")
+>>>>>>> 6ecac09b0a3a4852a032d59a545c470ef94999d6
 
 print("Генерируем 3D-визуализации...")
 for i in range(5):
@@ -96,4 +116,8 @@ for i in range(5):
     vis.capture_screen_image(f"pred_{i}.png", do_render=True)
     vis.destroy_window()
 
+<<<<<<< HEAD
 print("\n Готово! Все файлы в папке lab5/")
+=======
+print("\n Готово! Все файлы в папке lab5/")
+>>>>>>> 6ecac09b0a3a4852a032d59a545c470ef94999d6
