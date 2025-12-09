@@ -7,19 +7,16 @@ import open3d as o3d
 from model import PointNet
 from data import ModelNetDataset
 
-# 1. Загружаем тестовые данные
-print("🔍 Загружаем тестовый датасет...")
+print("Загружаем тестовый датасет...")
 test_ds = ModelNetDataset('test', cache_path="../modelnet10_1024.h5")
 num_classes = len(np.unique(test_ds.labels))
 
-# 2. Загружаем модель
-print("🧠 Загружаем обученную модель...")
+print("Загружаем обученную модель...")
 model = PointNet(num_classes=num_classes)
 model.load_state_dict(torch.load("../pointnet_model.pth", weights_only=True))
 model.eval()
 
-# 3. Делаем предсказания
-print("📈 Делаем предсказания на тесте...")
+print("Делаем предсказания на тесте...")
 all_preds, all_labels = [], []
 with torch.no_grad():
     for i in range(len(test_ds)):
@@ -33,14 +30,12 @@ with torch.no_grad():
 all_preds = np.array(all_preds)
 all_labels = np.array(all_labels)
 test_acc = (all_preds == all_labels).mean()
-print(f"✅ Точность (проверка): {test_acc:.4f}")
+print(f" Точность (проверка): {test_acc:.4f}")
 
-# 4. Загружаем имена классов
 with h5py.File("../modelnet10_1024.h5", 'r') as f:
     classes = [cls.decode('utf-8') for cls in f['classes'][:]]
 
-# 5. Confusion Matrix
-print("📊 Строим confusion matrix...")
+print(" Строим confusion matrix...")
 cm = confusion_matrix(all_labels, all_preds, normalize='true')
 plt.figure(figsize=(8, 6))
 plt.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
@@ -53,11 +48,9 @@ plt.ylabel('True label')
 plt.xlabel('Predicted label')
 plt.tight_layout()
 plt.savefig("confusion_matrix.png", dpi=150, bbox_inches='tight')
-print("✅ confusion_matrix.png сохранён")
+print(" confusion_matrix.png сохранён")
 
-# 6. График точности (используем данные из логов выше)
 epochs = list(range(1, 81))
-# Скопируйте сюда ваши значения Val Acc с эпох:
 val_acc = [
     0.6476, 0.7059, 0.7148, 0.7533, 0.7687, 0.7698, 0.7621, 0.7885,
     0.8117, 0.8128, 0.7952, 0.7941, 0.7775, 0.8359, 0.8040, 0.8293,
@@ -81,10 +74,9 @@ plt.legend()
 plt.grid(True, alpha=0.3)
 plt.tight_layout()
 plt.savefig("val_accuracy.png", dpi=150)
-print("✅ val_accuracy.png сохранён")
+print(" val_accuracy.png сохранён")
 
-# 7. Визуализация 5 примеров
-print("🖼️ Генерируем 3D-визуализации...")
+print("Генерируем 3D-визуализации...")
 for i in range(5):
     points, label = test_ds[i]
     points_t = torch.tensor(points).unsqueeze(0).float()
@@ -96,7 +88,6 @@ for i in range(5):
     color = [0, 1, 0] if pred == label else [1, 0, 0]
     pcd.colors = o3d.utility.Vector3dVector([color] * len(points))
     
-    # Сохраняем как изображение (без GUI)
     vis = o3d.visualization.Visualizer()
     vis.create_window(width=600, height=400, visible=False)
     vis.add_geometry(pcd)
@@ -105,5 +96,4 @@ for i in range(5):
     vis.capture_screen_image(f"pred_{i}.png", do_render=True)
     vis.destroy_window()
 
-print("✅ pred_0.png ... pred_4.png сохранены")
-print("\n🎉 Готово! Все файлы в папке lab5/")
+print("\n Готово! Все файлы в папке lab5/")
