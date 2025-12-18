@@ -6,12 +6,13 @@ build/
 dist/
 *.egg-info/
 
-*.npy
 *.npz
+*.npy
 *.h5
 Stanford3dDataset/
 Semantic3D/
 ModelNet10/
+checkpoints/
 
 *.txt        
 *.labels
