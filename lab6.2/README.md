@@ -1,4 +1,4 @@
-##PointNet++: 3D Object Segmentation 
+## PointNet++: 3D Object Segmentation 
 
 ### Создание виртуального окружения
 1. Создание виртуального окружения
