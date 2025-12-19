@@ -77,7 +77,7 @@ def process_area(area_dir: str) -> np.ndarray:
                     processed = process_room(full_txt)
                     all_points.append(processed)
                 except Exception as e:
-                    print(f"❌ Ошибка обработки {full_txt}: {e}")
+                    print(f" Ошибка обработки {full_txt}: {e}")
 
     if not all_points:
         raise ValueError(f"Нет данных для обработки в {area_dir}")
