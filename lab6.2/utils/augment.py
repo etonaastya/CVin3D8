@@ -29,7 +29,7 @@ def augment_batch(points_batch, config):
         if config.ROTATE_Z:
             p = random_rotate_z(p)
         if config.JITTER:
-            p = random_jitter(p, config.JITTER_SIGMA, config.JITTER_CLIP)
+            p = random_jitter(p, config.JITTER_SIGMA, config.JITTER_CLIP) 
         if config.DROPOUT_POINTS < 1.0:
             p = random_dropout(p, config.DROPOUT_POINTS)
             if len(p) < N:
